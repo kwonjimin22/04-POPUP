@@ -17,4 +17,26 @@ $(function () {
     // 새 창 열기 ---> window.open()
     window.open(linkValue);
   });
+
+  // 2. 디자인 커스텀
+  const $slectWrap = $('.select-wrap');
+  const $selectList = $('.select-list');
+
+  // strong(Family site)을 클릭하면 $selectList를 보이게
+  $slectWrap.find('strong').on('click', function () {
+    $selectList.slideToggle();
+  });
+
+  $selectList.children('li').on('click', function () {
+    // const랑 let은 유효범위가 {}안에만 해당
+    // attr('속성명')
+    // const linkValue = $(this).attr('data-link');
+    // data('속성명') , 'data-' 를 생략
+    const linkValue = $(this).data('link');
+    console.log(linkValue);
+
+    window.open(linkValue);
+
+    $selectList.slideUp();
+  });
 });
