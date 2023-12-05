@@ -46,6 +46,9 @@ $(function () {
   const $menuList = $('.menu > li');
   const $submenu = $('.submenu');
 
+  // 버그?잡기, 예외처리? 오류처리? 일단 임시로 더블클릭되면 초기화되는 거 추가
+  $menuList.on('dblclick', initSubmenu);
+
   $menuList.on('click', function (e) {
     e.preventDefault();
     initSubmenu();
