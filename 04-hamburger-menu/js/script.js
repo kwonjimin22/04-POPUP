@@ -21,21 +21,45 @@ $(function () {
   // 공통의 동작을 함수로 정의
   // 1. 메뉴의 움직임 (보이거나 숨기거나)
   function slideMenu(pos) {
-    $menu.animate({ left: pos }, 350);
+    $menu.stop().animate({ left: pos }, 350);
   }
 
   // 2.openMenu : 메뉴를 보이게(메뉴, active부여, dim fadeIn, isActive)
   function openMenu() {
     $btnMenu.addClass('active');
-    $dim.fadeIn();
+    $dim.stop().fadeIn();
     slideMenu(0);
     isActive = true;
   }
   // 3.closeMenu : 메뉴를 보이게(메뉴, active삭제, dim fadeOut, isActive)
   function closeMenu() {
     $btnMenu.removeClass('active');
-    $dim.fadeOut();
+    $dim.stop().fadeOut();
     slideMenu('-100%');
     isActive = false;
+
+    // 서브메뉴 초기화
+    initSubmenu();
+  }
+
+  // 서브메뉴 동작
+  const $menuList = $('.menu > li');
+  const $submenu = $('.submenu');
+
+  $menuList.on('click', function (e) {
+    e.preventDefault();
+    initSubmenu();
+
+    // $(this).siblings().removeClass('on');
+    $(this).toggleClass('on');
+
+    // $(this).siblings().find($submenu).slideUp();
+    $(this).find($submenu).stop().slideToggle();
+  });
+
+  // 서브메뉴 초기화를 함수로 분리
+  function initSubmenu() {
+    $menuList.removeClass('on');
+    $submenu.stop().slideUp();
   }
 });
